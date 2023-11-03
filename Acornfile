@@ -1,0 +1,22 @@
+services: redis: image: "ghcr.io/acorn-io/redis:v#.#.#-#"
+
+services: mongodb: image: "ghcr.io/acorn-io/mongodb:v#.#-#"
+
+containers: app: {
+    name: "ViewTube"
+    image: "mauriceo/viewtube:latest"
+	consumes: ["redis", "mongodb"]
+	ports: publish: "8066:8066/http"
+    dirs: {
+        "/data": "volume://data"
+    }
+	env: {
+		VIEWTUBE_DATABASE_HOST: "@{service.mongodb.address}"
+		VIEWTUBE_REDIS_HOST: "@{service.redis.address}"
+	}
+    memory: 1512Mi
+}
+
+volumes: {
+    "data": {}
+}
