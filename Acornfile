@@ -12,7 +12,10 @@ containers: app: {
     }
 	env: {
 		VIEWTUBE_DATABASE_HOST: "@{service.mongodb.address}"
+        VIEWTUBE_DATABASE_USER: "@{service.mongodb.secrets.user.username}"
+		VIEWTUBE_DATABASE_PASSWORD: "@{service.mongodb.secrets.user.password}"
 		VIEWTUBE_REDIS_HOST: "@{service.redis.address}"
+        VIEWTUBE_REDIS_PASSWORD: "@{service.redis.secrets.admin.token}"
 	}
     memory: 1512Mi
 }
